@@ -1,0 +1,16 @@
+- name: register command
+  hosts: all
+  become: yes
+  tasks:
+   - name: Copy the local motd file to servers
+     copy:
+      content: "This server is part of the {{ansible_os_family}} family"
+      dest: /etc/motd
+
+   - name: Now, verifying the copy
+     command: cat /etc/motd
+     register: mymessage
+   
+   - debug:
+      msg: "{{mymessage.stdout}}"
+    

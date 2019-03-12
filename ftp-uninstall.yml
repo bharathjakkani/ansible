@@ -1,0 +1,15 @@
+- name: Deploy FTP in Ubuntu servers
+  hosts: ubuntu-grp
+  become: yes
+  tasks:
+   - name: Stop FTP service
+     service:
+      name: vsftpd
+      state: stopped
+      enabled: no
+   
+   - name: Uninstall FTP package
+     apt:
+      name: vsftpd
+      state: absent
+

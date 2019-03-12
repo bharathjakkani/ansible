@@ -1,0 +1,40 @@
+- name: Deploying Web service in Ubuntu servers
+  hosts: ubuntu-grp
+  become: yes
+  tasks:
+   - name: Install apache2 in Ubuntu servers
+     apt:
+      name: apache2
+      state: present
+
+   - name: Start and enable the apache2 service
+     service:
+      name: apache2
+      enabled: yes
+      state: started
+
+   - name: Copying/Deploying web files
+     copy:
+      src: /home/devops/index.html
+      dest: /var/www/html
+      owner: root
+
+- name: Deploying Web service in OEL servers
+  hosts: oel-grp
+  become: yes
+  tasks:
+   - name: Install HTTPD service in OEL servers
+     yum:
+      name: httpd
+      state: present
+
+   - name: Start and enable HTTP service
+     service:
+      name: httpd
+      state: started
+      enabled: yes 
+   - name: Copying/Deploying web files
+     copy:
+      src: /home/devops/index.html
+      dest: /var/www/html
+      owner: root

@@ -1,0 +1,13 @@
+- name: Deploy FTP in Ubuntu servers
+  hosts: ubuntu-grp
+  become: yes
+  tasks:
+   - name: Install FTP package
+     apt:
+      name: vsftpd
+      state: present
+   - name: Start FTP service
+     service:
+      name: vsftpd
+      state: started
+      enabled: yes
